@@ -14,27 +14,24 @@ app.post("/sign-up", (req, res) => {
         avatar: avatar
     };
     users.push(newUser);
-    res.send("OK");
+    res.status(201).send("OK");
 });
 
 app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body;
     if(!users.find(u => u.username === username))
-        return res.send("UNAUTHORIZED");
+        return res.status(401).send("UNAUTHORIZED");
     const newTweet = {
         username: username,
         avatar: users.find(u => u.username === username).avatar,
         tweet: tweet
     };
     tweets.push(newTweet);
-    res.send("OK");
+    res.status(201).send("OK");
 });
 
 app.get("/tweets", (req, res) => {
-    // if(tweets.length > 10)
-        return res.send(tweets.slice(0, 10));
-    // else
-    // res.send(tweets);
+    return res.send(tweets.slice(0, 10));
 });
 
 app.listen(PORT);
