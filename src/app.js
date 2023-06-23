@@ -17,4 +17,16 @@ app.post("/sign-up", (req, res) => {
     res.send("OK");
 });
 
+app.post("/tweets", (req, res) => {
+    const {username, tweet} = req.body;
+    if(!users.find(u => u.username === username))
+        return res.send("UNAUTHORIZED");
+    const newTweet = {
+        username: username,
+        tweet: tweet
+    };
+    tweets.push(newTweet);
+    res.send("OK");
+});
+
 app.listen(PORT);
