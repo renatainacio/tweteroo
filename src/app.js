@@ -23,10 +23,18 @@ app.post("/tweets", (req, res) => {
         return res.send("UNAUTHORIZED");
     const newTweet = {
         username: username,
+        avatar: users.find(u => u.username === username).avatar,
         tweet: tweet
     };
     tweets.push(newTweet);
     res.send("OK");
+});
+
+app.get("/tweets", (req, res) => {
+    // if(tweets.length > 10)
+        return res.send(tweets.slice(0, 10));
+    // else
+    // res.send(tweets);
 });
 
 app.listen(PORT);
