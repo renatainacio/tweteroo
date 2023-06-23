@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.post("/sign-up", (req, res) => {
     const {username, avatar} = req.body;
+    if(!username || !avatar || typeof(username) !== "string" || typeof(avatar) !== "string")
+        return res.status(400).send("Todos os campos são obrigatórios!");
     const newUser = {
         username: username,
         avatar: avatar
@@ -19,6 +21,8 @@ app.post("/sign-up", (req, res) => {
 
 app.post("/tweets", (req, res) => {
     const {username, tweet} = req.body;
+    if(!username || !tweet || typeof(username) !== "string" || typeof(tweet) !== "string")
+        return res.status(400).send("Todos os campos são obrigatórios!");
     if(!users.find(u => u.username === username))
         return res.status(401).send("UNAUTHORIZED");
     const newTweet = {
