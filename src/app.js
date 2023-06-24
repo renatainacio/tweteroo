@@ -38,4 +38,9 @@ app.get("/tweets", (req, res) => {
     return res.send(tweets.slice(0, 10));
 });
 
+app.get("/tweets/:username", (req, res) => {
+    const {username} = req.params;
+    res.send(tweets.filter(t => t.username === username));
+});
+
 app.listen(PORT);
