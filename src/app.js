@@ -35,7 +35,15 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-    return res.send(tweets.slice(0, 10));
+    const {page} = req.query;
+    if(!page) {
+        return res.send(tweets.slice(0, 10));
+    }
+    else if (page < 1)
+        return res.status(400).send("Informe uma página válida!");
+    else {
+        return res.send(tweets.slice((page - 1) * 10, (page - 1) * 10 + 10));
+    }
 });
 
 app.get("/tweets/:username", (req, res) => {
