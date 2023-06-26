@@ -20,10 +20,11 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-    const {username, tweet} = req.body;
-    if(!username || !tweet || typeof(username) !== "string" || typeof(tweet) !== "string")
+    const {tweet} = req.body;
+    const {user} = req.headers;
+    if(!user|| !tweet || typeof(user) !== "string" || typeof(tweet) !== "string")
         return res.status(400).send("Todos os campos são obrigatórios!");
-    if(!users.find(u => u.username === username))
+    if(!users.find(u => u.username === user))
         return res.status(401).send("UNAUTHORIZED");
     const newTweet = {
         username: username,
